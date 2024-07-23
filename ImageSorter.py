@@ -28,7 +28,6 @@ class ImageSorter:
         self.label = Label(self.root)
         self.label.pack(expand=True)
 
-
         user_buttons = {1: 'left', 2: 'right', 3: 'bottom', 4: 'top'}
         buttons = []
 
