@@ -35,7 +35,7 @@ class ImageSorter:
         btn3 = Button(self.root, text=folder_names[2], command=lambda: self.move_to_folder(self.folders[2]))
         btn3.pack(side='bottom')
 
-        btn4 = Button(self.root, text=folder_namesпа[3], command=lambda: self.move_to_folder(self.folders[3]))
+        btn4 = Button(self.root, text=folder_names[3], command=lambda: self.move_to_folder(self.folders[3]))
         btn4.pack(side='right')
 
 
@@ -77,3 +77,5 @@ if __name__ == '__main__':
         
         if folder_names:
             sorter = ImageSorter(folder_path, folder_names)
+
+os.path.join(os.path.dirname(sys.argv[0]), 'ImageSorter.py')
