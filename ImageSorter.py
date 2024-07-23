@@ -22,23 +22,29 @@ class ImageSorter:
 
     def setup_ui(self):
         self.root = Tk()
-        self.root.title("Сортировщик by eRas")
+        self.root.configure(background='black')
+        self.root.iconbitmap("photo_2022-06-16_16-39-39.ico")
+        self.root.title("Image Sorter by eRas")
         self.label = Label(self.root)
-        self.label.pack()
+        self.label.pack(expand=True)
 
+    # for i in range(4): 
+    #     button = "btn" 
+    #     new_button = button + str(i) 
+    #     print(new_button)
         # Создание кнопок для всех папок
-        btn1 = Button(self.root, text=folder_names[0], command=lambda: self.move_to_folder(self.folders[0]))
-        btn1.pack(side='left')
 
-        btn2 = Button(self.root, text=folder_names[1], command=lambda: self.move_to_folder(self.folders[1]))
-        btn2.pack(side='right')
-
-        btn3 = Button(self.root, text=folder_names[2], command=lambda: self.move_to_folder(self.folders[2]))
-        btn3.pack(side='bottom')
-
-        btn4 = Button(self.root, text=folder_names[3], command=lambda: self.move_to_folder(self.folders[3]))
-        btn4.pack(side='right')
-
+        user_buttons = {1: 'left',
+                        2: 'right',
+                        3: 'bottom',
+                        4: 'top',}
+        
+        random_list = ['levo', 'pravo']
+        buttons = []
+        for i in range(len(folder_names)):
+            btn = Button(self.root, text=folder_names[i], command=lambda i=i: self.move_to_folder(self.folders[i]))
+            buttons.append(btn)
+            btn.pack(side=user_buttons.get(i+1))
 
         self.load_image()
         self.root.bind("<Left>", lambda event: self.move_to_folder(self.folders[0]))  # Первая папка по умолчанию
