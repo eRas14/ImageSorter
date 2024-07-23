@@ -3,7 +3,6 @@ import shutil
 from tkinter import Tk, Label, Button
 from tkinter import filedialog
 from PIL import Image, ImageTk
-import sys
 
 class ImageSorter:
     def __init__(self, folder_path, folder_names):
@@ -18,12 +17,12 @@ class ImageSorter:
 
         self.images = [f for f in os.listdir(folder_path) if f.endswith(('jpg', 'jpeg', 'png', 'bmp'))]
         self.index = 0
+       
         self.setup_ui()
-
-    def setup_ui(self):
+    # Оболочка
+    def setup_ui(self): 
         self.root = Tk()
         self.root.configure(background='black')
-        self.root.iconbitmap("logo\logo_eras.ico")
         self.root.title("Image Sorter by eRas")
         self.label = Label(self.root)
         self.label.pack(expand=True)
@@ -47,7 +46,6 @@ class ImageSorter:
         if self.index < len(self.images):
             image_path = os.path.join(self.folder_path, self.images[self.index])
             img = Image.open(image_path)
-            # img.thumbnail((400, 400))  # Изменяем размер изображения для отображения
             self.photo = ImageTk.PhotoImage(img)
             self.label.config(image=self.photo)
             self.label.image = self.photo
@@ -75,4 +73,3 @@ if __name__ == '__main__':
         if folder_names:
             sorter = ImageSorter(folder_path, folder_names)
 
-os.path.join(os.path.dirname(sys.argv[0]), 'ImageSorter.py')
