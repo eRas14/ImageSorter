@@ -7,7 +7,8 @@ from PIL import Image, ImageTk
 class ImageSorter:
     def __init__(self, folder_path, folder_names):
         self.folder_path = folder_path
-        
+          
+          
         # Создаем папки
         self.folders = []
         for folder_name in folder_names:
