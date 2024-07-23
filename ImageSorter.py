@@ -23,34 +23,25 @@ class ImageSorter:
     def setup_ui(self):
         self.root = Tk()
         self.root.configure(background='black')
-        self.root.iconbitmap("photo_2022-06-16_16-39-39.ico")
+        self.root.iconbitmap("logo\logo_eras.ico")
         self.root.title("Image Sorter by eRas")
         self.label = Label(self.root)
         self.label.pack(expand=True)
 
-    # for i in range(4): 
-    #     button = "btn" 
-    #     new_button = button + str(i) 
-    #     print(new_button)
-        # Создание кнопок для всех папок
 
-        user_buttons = {1: 'left',
-                        2: 'right',
-                        3: 'bottom',
-                        4: 'top',}
-        
-        random_list = ['levo', 'pravo']
+        user_buttons = {1: 'left', 2: 'right', 3: 'bottom', 4: 'top'}
         buttons = []
+
         for i in range(len(folder_names)):
             btn = Button(self.root, text=folder_names[i], command=lambda i=i: self.move_to_folder(self.folders[i]))
             buttons.append(btn)
             btn.pack(side=user_buttons.get(i+1))
 
         self.load_image()
-        self.root.bind("<Left>", lambda event: self.move_to_folder(self.folders[0]))  # Первая папка по умолчанию
-        self.root.bind("<Right>", lambda event: self.move_to_folder(self.folders[1])) # Вторая папка по умолчанию
-        self.root.bind("<Down>", lambda event: self.move_to_folder(self.folders[2])) # Третья папка по умолчанию
-        self.root.bind("<Up>", lambda event: self.move_to_folder(self.folders[3])) # Четвертая папка по умолчанию
+        self.root.bind("<Left>", lambda event: self.move_to_folder(self.folders[0]))  #Папки по умолчанию на кнопках
+        self.root.bind("<Right>", lambda event: self.move_to_folder(self.folders[1])) 
+        self.root.bind("<Down>", lambda event: self.move_to_folder(self.folders[2])) 
+        self.root.bind("<Up>", lambda event: self.move_to_folder(self.folders[3])) 
         self.root.mainloop()
 
     def load_image(self):
