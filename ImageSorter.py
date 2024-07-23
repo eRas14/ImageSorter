@@ -3,6 +3,7 @@ import shutil
 from tkinter import Tk, Label, Button
 from tkinter import filedialog
 from PIL import Image, ImageTk
+import sys
 
 class ImageSorter:
     def __init__(self, folder_path, folder_names):
