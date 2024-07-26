@@ -24,7 +24,7 @@ class ImageSorter:
     def setup_ui(self): 
         self.root = Tk()
         self.root.resizable(False, False)
-        self.root.title("Image Sorter by eRas")
+        self.root.title("Image Sorter")
         self.label = Label(self.root)
         self.label.pack(expand=True) #expend=True - отвечает за отображение фото по центру
         
