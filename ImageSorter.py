@@ -22,29 +22,26 @@ class ImageSorter:
     # Оболочка
     def setup_ui(self): 
         self.root = Tk()
-        self.root.configure(background='black')
+        self.root.configure(background='grey')
         self.root.title("Image Sorter by eRas")
+        self.root.resizable(False, False)
         self.label = Label(self.root)
         self.label.pack(expand=True) #expend=True - отвечает за отображение фото по центру
         
-        #Словарь где хранятся расположение кнопок
-        user_buttons = {1: 'left', 2: 'right', 3: 'bottom', 4: 'top'}
+        #Список где хранятся расположение кнопок
+        user_buttons = ['left', 'right', 'top', 'bottom']
 
-        #Пусто словрь для создания кнопок
-        buttons = []
-        
         #В этом цикле создаются кнопки, и добавляются в список buttons, после идет распоковка, где берется значение из user_buttons (располождение кнопки)
         for i in range(len(folder_names)):
             btn = Button(self.root, text=folder_names[i], command=lambda i=i: self.move_to_folder(self.folders[i]))
-            buttons.append(btn)
-            btn.pack(side=user_buttons.get(i+1))
+            btn.pack(side=user_buttons[i])
 
         #Папки по умолчанию на кнопках, отсюда вывод -- > забинжены только 4 стрелки
         self.load_image()
         self.root.bind("<Left>", lambda event: self.move_to_folder(self.folders[0]))  
         self.root.bind("<Right>", lambda event: self.move_to_folder(self.folders[1])) 
-        self.root.bind("<Down>", lambda event: self.move_to_folder(self.folders[2])) 
-        self.root.bind("<Up>", lambda event: self.move_to_folder(self.folders[3])) 
+        self.root.bind("<Up>", lambda event: self.move_to_folder(self.folders[2])) 
+        self.root.bind("<Down>", lambda event: self.move_to_folder(self.folders[3])) 
         self.root.mainloop()
     #Загрузка фото в окно
     def load_image(self):
