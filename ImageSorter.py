@@ -13,11 +13,12 @@ class ImageSorter:
         self.folders = []
         for folder_name in folder_names:
             folder_path_full = os.path.join(folder_path, folder_name)
-            os.makedirs(folder_path_full, exist_ok=True)
+            os.makedirs(folder_path_full, exist_ok=True) #exist - не вызывает ошибку если папка уже существует
             self.folders.append(folder_path_full)
 
+        # Загружаем изображения определенных расщирений
         self.images = [f for f in os.listdir(folder_path) if f.endswith(('jpg', 'jpeg', 'png', 'bmp'))]
-        self.index = 0
+        self.index = 0 #Считаем количество изображений
 
         self.setup_ui()
 
@@ -25,19 +26,20 @@ class ImageSorter:
     def setup_ui(self):
         self.root = Tk()
         self.root.configure(background='grey')
-        self.root.title("Image Sorter by eRas")
+        self.root.title("Image Sorter by eRas v1.2")
         self.root.resizable(False, False)
-        self.label = Label(self.root)
+        self.label = Label(self.root) #Элемент для отображения изображений, который добавляется в окно
         self.label.pack(expand=True)
 
-        # Список, где хранятся расположение кнопок
-        user_buttons = ['left', 'right', 'top', 'bottom']
+        # Список, где хранятся расположение кнопок (для четырех)
+        user_buttons = ['left', 'right', 'top', 'bottom'] 
 
         # Создание кнопок
         for i in range(len(folder_names)):
-            btn = Button(self.root, text=folder_names[i], command=lambda i=i: self.move_to_folder(self.folders[i]))
+            btn = Button(self.root, text=folder_names[i], command=lambda i=i: self.move_to_folder(self.folders[i])) #Замыкаем лямбдой что сохранить i
             btn.pack(side=user_buttons[i])
 
+        # Связываем кнопки с клавиатурый
         self.load_image()
         self.root.bind("<Left>", lambda event: self.move_to_folder(self.folders[0]))
         self.root.bind("<Right>", lambda event: self.move_to_folder(self.folders[1]))
