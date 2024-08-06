@@ -33,9 +33,12 @@ class ImageSorter:
         # Список, где хранятся расположение кнопок (для четырех)
         user_buttons = ['left', 'right', 'top', 'bottom'] 
 
+        # Стрелочки
+        directions = ["←", "→", "↑","↓" ]
+
         # Создание кнопок
         for i in range(len(folder_names)):
-            btn = Button(self.root, text=folder_names[i], command=lambda i=i: self.move_to_folder(self.folders[i])) #Замыкаем лямбдой что сохранить i
+            btn = Button(self.root, text=f"{folder_names[i]} {directions[i]}", command=lambda i=i: self.move_to_folder(self.folders[i])) #Замыкаем лямбдой что сохранить i
             btn.pack(side=user_buttons[i])
 
         # Связываем кнопки с клавиатурый
@@ -68,8 +71,8 @@ class ImageSorter:
         self.label.config(image=self.photo)
         self.label.image = self.photo
 
+    # Устанавливаем заголовок как имя текущего изображения
     def update_title(self):
-        # Устанавливаем заголовок как имя текущего изображения
         self.root.title(self.images[self.index])
 
     # Перемещение фото
