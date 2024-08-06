@@ -1,7 +1,7 @@
 import os
 import shutil
 from tkinter import Tk, Label, Button
-from tkinter import filedialog
+from tkinter import filedialog, Label, Button, messagebox
 from PIL import Image, ImageTk
 
 class ImageSorter:
@@ -18,15 +18,14 @@ class ImageSorter:
 
         # Загружаем изображения определенных расщирений
         self.images = [f for f in os.listdir(folder_path) if f.endswith(('jpg', 'jpeg', 'png', 'bmp'))]
-        self.index = 0 #Считаем количество изображений
 
+        self.index = 0 #Считаем количество изображений
         self.setup_ui()
 
     # Оболочка
     def setup_ui(self):
         self.root = Tk()
         self.root.configure(background='grey')
-        self.root.title("Image Sorter by eRas v1.2")
         self.root.resizable(False, False)
         self.label = Label(self.root) #Элемент для отображения изображений, который добавляется в окно
         self.label.pack(expand=True)
@@ -34,10 +33,17 @@ class ImageSorter:
         # Список, где хранятся расположение кнопок (для четырех)
         user_buttons = ['left', 'right', 'top', 'bottom'] 
 
+        # Стрелочки
+        directions = ["←", "→", "↑","↓" ]
+
         # Создание кнопок
         for i in range(len(folder_names)):
-            btn = Button(self.root, text=folder_names[i], command=lambda i=i: self.move_to_folder(self.folders[i])) #Замыкаем лямбдой что сохранить i
+            btn = Button(self.root, text=f"{folder_names[i]} {directions[i]}", command=lambda i=i: self.move_to_folder(self.folders[i])) #Замыкаем лямбдой что сохранить i
             btn.pack(side=user_buttons[i])
+
+        # Кнопка для копирования имени изображения
+        copy_button = Button(self.root, text="Копировать имя", command=self.copy_image_name)
+        copy_button.pack(side='bottom', padx=5)
 
         # Связываем кнопки с клавиатурый
         self.load_image()
@@ -56,6 +62,7 @@ class ImageSorter:
             image_path = os.path.join(self.folder_path, self.images[self.index])
             img = Image.open(image_path)
             self.display_image(img)
+            self.update_title()
         else:
             self.label.config(text="Все изображения отсортированы!")
             self.label.image = None
@@ -67,6 +74,10 @@ class ImageSorter:
         self.photo = ImageTk.PhotoImage(img)
         self.label.config(image=self.photo)
         self.label.image = self.photo
+
+    # Устанавливаем заголовок как имя текущего изображения
+    def update_title(self):
+        self.root.title(self.images[self.index])
 
     # Перемещение фото
     def move_to_folder(self, target_folder):
@@ -88,6 +99,13 @@ class ImageSorter:
             image_path = os.path.join(self.folder_path, self.images[self.index])
             img = Image.open(image_path)
             self.display_image(img)
+
+    def copy_image_name(self):
+        if self.index < len(self.images):
+            image_name = self.images[self.index]
+            self.root.clipboard_clear()  # Очищаем буфер обмена
+            self.root.clipboard_append(image_name)  # Добавляем название изображения
+            messagebox.showinfo("Успешно", "Скопировано в буфер обмена!")
 
 if __name__ == '__main__':
     folder_path = filedialog.askdirectory(title="Выберите папку с изображениями")
