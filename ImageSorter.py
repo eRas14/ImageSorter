@@ -26,7 +26,6 @@ class ImageSorter:
     def setup_ui(self):
         self.root = Tk()
         self.root.configure(background='grey')
-        self.root.title("Image Sorter by eRas v1.2")
         self.root.resizable(False, False)
         self.label = Label(self.root) #Элемент для отображения изображений, который добавляется в окно
         self.label.pack(expand=True)
@@ -56,6 +55,7 @@ class ImageSorter:
             image_path = os.path.join(self.folder_path, self.images[self.index])
             img = Image.open(image_path)
             self.display_image(img)
+            self.update_title()
         else:
             self.label.config(text="Все изображения отсортированы!")
             self.label.image = None
@@ -67,6 +67,10 @@ class ImageSorter:
         self.photo = ImageTk.PhotoImage(img)
         self.label.config(image=self.photo)
         self.label.image = self.photo
+
+    def update_title(self):
+        # Устанавливаем заголовок как имя текущего изображения
+        self.root.title(self.images[self.index])
 
     # Перемещение фото
     def move_to_folder(self, target_folder):
