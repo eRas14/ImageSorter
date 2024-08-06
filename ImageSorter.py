@@ -1,7 +1,7 @@
 import os
 import shutil
 from tkinter import Tk, Label, Button
-from tkinter import filedialog
+from tkinter import filedialog, Label, Button, messagebox
 from PIL import Image, ImageTk
 
 class ImageSorter:
@@ -18,8 +18,8 @@ class ImageSorter:
 
         # Загружаем изображения определенных расщирений
         self.images = [f for f in os.listdir(folder_path) if f.endswith(('jpg', 'jpeg', 'png', 'bmp'))]
-        self.index = 0 #Считаем количество изображений
 
+        self.index = 0 #Считаем количество изображений
         self.setup_ui()
 
     # Оболочка
@@ -40,6 +40,10 @@ class ImageSorter:
         for i in range(len(folder_names)):
             btn = Button(self.root, text=f"{folder_names[i]} {directions[i]}", command=lambda i=i: self.move_to_folder(self.folders[i])) #Замыкаем лямбдой что сохранить i
             btn.pack(side=user_buttons[i])
+
+        # Кнопка для копирования имени изображения
+        copy_button = Button(self.root, text="copy_name", command=self.copy_image_name)
+        copy_button.pack(side='bottom', padx=5)
 
         # Связываем кнопки с клавиатурый
         self.load_image()
@@ -95,6 +99,13 @@ class ImageSorter:
             image_path = os.path.join(self.folder_path, self.images[self.index])
             img = Image.open(image_path)
             self.display_image(img)
+
+    def copy_image_name(self):
+        if self.index < len(self.images):
+            image_name = self.images[self.index]
+            self.root.clipboard_clear()  # Очищаем буфер обмена
+            self.root.clipboard_append(image_name)  # Добавляем название изображения
+            messagebox.showinfo("Скопировано", f"Название изображения '{image_name}' скопировано в буфер обмена!")
 
 if __name__ == '__main__':
     folder_path = filedialog.askdirectory(title="Выберите папку с изображениями")
