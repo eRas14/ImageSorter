@@ -106,7 +106,7 @@ class ImageSorter:
             image_name = self.images[self.index]
             self.root.clipboard_clear()  # Очищаем буфер обмена
             self.root.clipboard_append(image_name)  # Добавляем название изображения
-            messagebox.showinfo("Скопировано", f"Название изображения '{image_name}' скопировано в буфер обмена!")
+            messagebox.showinfo("Успешно!", "Cкопировано в буфер обмена!")
 
 if __name__ == '__main__':
     folder_path = filedialog.askdirectory(title="Выберите папку с изображениями")
