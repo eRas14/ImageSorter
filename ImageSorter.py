@@ -42,7 +42,7 @@ class ImageSorter:
             btn.pack(side=user_buttons[i])
 
         # Кнопка для копирования имени изображения
-        copy_button = Button(self.root, text="copy_name", command=self.copy_image_name)
+        copy_button = Button(self.root, text="Копировать имя", command=self.copy_image_name)
         copy_button.pack(side='bottom', padx=5)
 
         # Связываем кнопки с клавиатурый
@@ -105,7 +105,7 @@ class ImageSorter:
             image_name = self.images[self.index]
             self.root.clipboard_clear()  # Очищаем буфер обмена
             self.root.clipboard_append(image_name)  # Добавляем название изображения
-            messagebox.showinfo("Скопировано", f"Название изображения '{image_name}' скопировано в буфер обмена!")
+            messagebox.showinfo("Успешно", "Скопировано в буфер обмена!")
 
 if __name__ == '__main__':
     folder_path = filedialog.askdirectory(title="Выберите папку с изображениями")
